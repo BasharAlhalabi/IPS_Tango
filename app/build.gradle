@@ -1,0 +1,48 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+    defaultConfig {
+        applicationId "de.tu_chemnitz.projecttangostudy"
+        minSdkVersion 19 //absolute min here
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+
+allprojects {
+    repositories {
+        jcenter()
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    compile(name: 'tango_support_java_lib', ext: 'aar')
+    compile(name: 'tango_ux_support_library', ext: 'aar')
+    //compile fileTree(dir: external_lib_prefix + '/jar', include: ['**/*.jar'])
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'org.rajawali3d:rajawali:1.0.325@aar'
+    compile 'com.android.support:support-v4:23.3.0'
+    testCompile 'junit:junit:4.12'
+    compile project(path: ':openCVLibrary320')
+}

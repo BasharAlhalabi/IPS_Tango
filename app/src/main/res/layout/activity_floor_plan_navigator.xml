@@ -1,0 +1,310 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/lo_grenze_center"
+        android:layout_width="2dp"
+        android:layout_height="152dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginTop="26dp"
+        android:alpha="0.4"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal"
+        android:translationZ="2dp"/>
+
+    <LinearLayout
+        android:id="@+id/lo_grenze_down"
+        android:layout_width="128dp"
+        android:layout_height="4dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="178dp"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal"
+        android:translationZ="2dp"/>
+
+    <LinearLayout
+        android:id="@+id/lo_grenze_top"
+        android:layout_width="128dp"
+        android:layout_height="4dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal"
+        android:translationZ="2dp"/>
+
+    <de.tu_chemnitz.projecttangostudy._2D_RenderingView
+        android:id="@+id/floorplan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <FrameLayout
+        android:id="@+id/main_layout"
+        android:layout_width="124dp"
+        android:layout_height="196dp"
+        android:layout_alignParentRight="false"
+        android:layout_margin="5dp"
+        android:background="@drawable/green_gradient_bg"
+        android:padding="4dp"
+        android:translationZ="1dp">
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/settings_button"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/clear_button"
+        android:paddingRight="5dp"
+        android:text="@string/settings"
+        android:visibility="visible"
+        android:onClick="onSettings_btn_clicked"
+        android:textSize="10sp"
+        android:layout_width="70dp"
+        android:layout_height="35dp" />
+
+    <Button
+        android:id="@+id/clear_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/clear"
+        android:paddingRight="5dp"
+        android:onClick="onClearButtonClicked"
+        android:layout_marginBottom="20dp"
+        android:textSize="10sp"
+        android:layout_width="70dp"
+        android:layout_height="35dp" />
+
+
+    <TextView
+        android:id="@+id/distance_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/distance_m"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="28dp"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/dist_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="n/a"
+        android:paddingRight="5dp"
+        android:layout_alignBaseline="@+id/distance_label"
+        android:layout_toRightOf="@+id/distance_label"
+        android:layout_toEndOf="@+id/distance_label"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/avg_depth_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/avg_depth_m"
+        android:layout_above="@+id/distance_label"
+        android:layout_alignStart="@+id/distance_label"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/avg_depth_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/n_a"
+        android:paddingRight="5dp"
+        android:layout_alignBaseline="@+id/avg_depth_label"
+        android:layout_alignBottom="@+id/avg_depth_label"
+        android:layout_toEndOf="@+id/avg_depth_label"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView_floor_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="n/a"
+        android:layout_alignBaseline="@+id/textView_floor_label"
+        android:layout_alignBottom="@+id/textView_floor_label"
+        android:layout_toEndOf="@+id/textView_floor_label"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView_floor_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/floor"
+        android:layout_above="@+id/avg_depth_label"
+        android:layout_alignStart="@+id/avg_depth_label"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView_loc_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/localized"
+        android:layout_above="@+id/textView_floor_num"
+        android:layout_alignStart="@+id/textView_floor_label"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView_localization_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="false"
+        android:textColor="@android:color/holo_orange_dark"
+        android:layout_alignBaseline="@+id/textView_loc_label"
+        android:layout_alignBottom="@+id/textView_loc_label"
+        android:layout_toEndOf="@+id/textView_loc_label"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView_height_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/y"
+        android:textColor="@android:color/holo_orange_dark"
+        android:layout_above="@+id/textView_loc_label"
+        android:layout_alignStart="@+id/textView_loc_label"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView_height_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/n_a"
+        android:textColor="@android:color/holo_orange_dark"
+        android:layout_above="@+id/textView_loc_label"
+        android:layout_toEndOf="@+id/textView_height_label"
+        android:textSize="10sp" />
+
+
+    <com.google.atap.tango.ux.TangoUxLayout
+        android:id="@+id/layout_tango"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/textView_rt_height_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rt_height"
+        android:textColor="@android:color/holo_orange_dark"
+        android:layout_above="@+id/textView_height_label"
+        android:layout_alignStart="@+id/textView_height_label"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView_rt_height_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="n/a"
+        android:textColor="@android:color/holo_orange_dark"
+        android:layout_alignBaseline="@+id/textView_rt_height_label"
+        android:layout_alignBottom="@+id/textView_rt_height_label"
+        android:layout_toEndOf="@+id/textView_rt_height_label"
+        android:textSize="10sp" />
+
+    <CheckBox
+        android:text="@string/show_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/textView_rest_h_2_switch_val"
+        android:id="@+id/checkBox_map_mode"
+        android:checked="true"
+        android:textSize="8sp" />
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar_map_scale"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:max="1000"
+        android:progress="250"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/checkBox_map_mode" />
+
+    <TextView
+        android:id="@+id/textView_RT_HandH_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rt_handh"
+        android:textColor="@android:color/holo_orange_dark"
+        android:layout_above="@+id/textView_rt_height_label"
+        android:layout_alignStart="@+id/textView_rt_height_label"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView_rest_h_2_switch_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rest2s"
+        android:textColor="@android:color/holo_orange_dark"
+        android:layout_above="@+id/textView_RT_HandH_label"
+        android:layout_alignStart="@+id/textView_RT_HandH_label"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView_rest_h_2_switch_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/n_a"
+        android:textColor="@android:color/holo_orange_dark"
+        android:layout_alignBaseline="@+id/textView_rest_h_2_switch_label"
+        android:layout_alignBottom="@+id/textView_rest_h_2_switch_label"
+        android:layout_toEndOf="@+id/textView_rest_h_2_switch_label"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView_RT_HandH_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/n_a"
+        android:textColor="@android:color/holo_orange_dark"
+        android:layout_above="@+id/textView_rt_height_val"
+        android:layout_toEndOf="@+id/textView_rest_h_2_switch_val"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView_TestS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/maps"
+        android:textColor="@android:color/holo_orange_dark"
+        android:layout_above="@+id/textView_rest_h_2_switch_label"
+        android:layout_alignStart="@+id/textView_rest_h_2_switch_label"
+        android:textSize="10sp" />
+
+    <CheckBox
+        android:text="@string/adj_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBox_testScale"
+        android:checked="false"
+        android:layout_above="@+id/textView_TestS"
+        android:layout_toStartOf="@+id/textView_rt_height_val"
+        android:textSize="8sp" />
+
+    <TextView
+        android:id="@+id/textView_TestS_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/n_a"
+        android:textColor="@android:color/holo_orange_dark"
+        android:layout_below="@+id/checkBox_testScale"
+        android:layout_toEndOf="@+id/textView_rest_h_2_switch_label"
+        android:textSize="10sp" />
+
+</RelativeLayout>
