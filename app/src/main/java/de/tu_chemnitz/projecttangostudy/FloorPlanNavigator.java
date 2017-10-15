@@ -88,10 +88,11 @@ public class FloorPlanNavigator extends Activity implements _2D_RenderingView.Dr
     static SeekBar map_scale_seekBar;
     static int _loc_ctr = 0;
     Dialog advanced_dialog;
+    static boolean allow_update_cam_poses = false; //for init. purposes
 
     //-----------------------------
 
-    public static boolean different_floors_heights = true; //every height has different height. Not studied deeply!
+    public static boolean different_floors_heights = false; //every height has different height. Not studied deeply!
     final static int MAX_FLOOR_NUM = 5;
     static double[] estimated_floor_heightS; //can hold MAX_FLOOR_NUM floors
     static boolean service_has_started = false;
@@ -347,12 +348,14 @@ public class FloorPlanNavigator extends Activity implements _2D_RenderingView.Dr
                 isDriftCorrection = true; //instantaneous corrections (run time, no ability to store or load ADFs)
                 isLearningMode = false;
                 isLoadAdf = false;
+                allow_update_cam_poses = false;
             }
             else
             {
                 isDriftCorrection = false;
                 isLearningMode = true; //saving a new ADF is done only after localized if the current session based on a loaded ADF........after a fresh start (not based on ADF) can save ADF. By starting based on loaded ADF, a new ADF can only be saved after localized.
                 isLoadAdf = true; //will load an ADF if found and try to calibrate it with environment (freezes all until calibration happens)
+                allow_update_cam_poses = true;
             }
         }
 
@@ -589,7 +592,7 @@ public class FloorPlanNavigator extends Activity implements _2D_RenderingView.Dr
 
         //Area learning modes:
         // Check the learning mode & Set learning mode to config.
-        if (isLoadAdf && isLearningMode) {
+        if (isLoadAdf && isLearningMode && !isDriftCorrection) {
 
             // Check for ADFs.
             {
@@ -599,18 +602,21 @@ public class FloorPlanNavigator extends Activity implements _2D_RenderingView.Dr
                 // Load the latest ADF if ADFs are found.
                 if (fullUuidList != null && fullUuidList.size() > 0) {
                     config.putString(TangoConfig.KEY_STRING_AREADESCRIPTION, fullUuidList.get(fullUuidList.size() - 1));
-
+                    allow_update_cam_poses = true;
+                    showsToastOnUiThread("ADF file(s) found", this);
                     Log.i("ADF ok", "ADFs OK");
                 } else {
                     Log.i("No ADFs found!", "No ADFs found!");
+                    showsToastOnUiThread("No ADF files are found.", this);
                 }
             }
 
             config.putBoolean(TangoConfig.KEY_BOOLEAN_LEARNINGMODE, true);
 
-        } else if (isDriftCorrection)
+        } else if (isDriftCorrection) {
+            allow_update_cam_poses = false;
             config.putBoolean(TangoConfig.KEY_BOOLEAN_DRIFT_CORRECTION, true);
-
+        }
 
         return config;
     }
@@ -1354,12 +1360,14 @@ public class FloorPlanNavigator extends Activity implements _2D_RenderingView.Dr
                                                                isDriftCorrection = true;
                                                                isLearningMode = false;
                                                                isLoadAdf = false;
+                                                               allow_update_cam_poses = false;
                                                            }
                                                            else {
                                                                user_allows_DriftCorrection = false;
                                                                isDriftCorrection = false;
                                                                isLearningMode = true; //after a fresh start (not based on ADF) can save ADF. By starting based on loaded ADF, a new ADF can only be saved after localized.
                                                                isLoadAdf = true; //will load an ADF if found and calibrate it
+                                                               allow_update_cam_poses = false;
                                                            }
 
                                                            //Store prefs:
