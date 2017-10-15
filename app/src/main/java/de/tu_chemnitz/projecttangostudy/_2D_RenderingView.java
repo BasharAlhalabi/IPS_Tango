@@ -109,7 +109,6 @@ public class _2D_RenderingView extends SurfaceView implements SurfaceHolder.Call
     public static float last_test_scale = 2.5f; //only for calibration of the bitmap (floor plan) size
 
     private float[] stored_old_val_of_head_corner = null; //temp. buffer
-    private boolean allow_update_cam_poses = false; //for init. purposes
     private float[] virtual_projection_of_head_on_line_LeftRight_calibrated_pt; //global only to visualize later
     private float init_angle_fix = Float.MAX_VALUE;
     private float[] init_pose_fix = null;   //a helping point to hold calibration info. for the next draw
@@ -126,6 +125,8 @@ public class _2D_RenderingView extends SurfaceView implements SurfaceHolder.Call
 
 
     //End of global variables group ---------------------------------------------------
+
+
 
 
     /**
@@ -764,7 +765,7 @@ public class _2D_RenderingView extends SurfaceView implements SurfaceHolder.Call
                     FloorPlanNavigator.reset_seekBar(); // reset scaling
 
                     //from now on consider poses to affect the floor plan
-                    allow_update_cam_poses = true;
+                    FloorPlanNavigator.allow_update_cam_poses = true;
                 }
 
 
@@ -1416,7 +1417,7 @@ public class _2D_RenderingView extends SurfaceView implements SurfaceHolder.Call
      */
     public void updateCameraMatrix(float translationX, float translationY, float yawRadians, float pitchRadians) {
 
-        if(allow_update_cam_poses) {
+        if(FloorPlanNavigator.allow_update_cam_poses) {
             mCamera.setTranslate(-translationX * SCALE, translationY * SCALE);
             mCamera.preRotate((float) Math.toDegrees(yawRadians), translationX * SCALE, -translationY * SCALE);
             mCamera.invert(mCameraInverse);
